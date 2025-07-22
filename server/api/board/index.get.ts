@@ -3,7 +3,7 @@ import path from "path";
 
 export default defineEventHandler(async (event) => {
   try {
-    const assetsPath = path.join(process.cwd(), "assets/images");
+    const assetsPath = path.join(process.cwd(), "public/images");
 
     try {
       await fs.access(assetsPath);
@@ -22,11 +22,11 @@ export default defineEventHandler(async (event) => {
       return {
         id: idx + 1,
         filename,
-        url: `/assets/images/${filename}`,
+        url: `/images/${filename}`,
         height: Math.floor(Math.random() * 300) + 200,
       };
     });
 
-    return { images };
+    return images;
   } catch (err) {}
 });

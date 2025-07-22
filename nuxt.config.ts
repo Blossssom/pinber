@@ -8,4 +8,9 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    inject: true,
+    quality: 80,
+    domains: ["localhost"],
+  },
 });
