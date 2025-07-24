@@ -1,5 +1,5 @@
 <template>
-  <aside class="h-full min-w-[60px] bg-amber-300 p-4">
+  <aside class="h-full w-[62px] bg-amber-300 p-4 fixed left-0">
     <UNavigationMenu :items="items" collapsed orientation="vertical" tooltip />
   </aside>
 </template>
