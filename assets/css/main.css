@@ -11,10 +11,6 @@ body,
   height: 100%;
 }
 
-.board-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
 .masonry-container {
   @apply w-full px-4 py-6;
 

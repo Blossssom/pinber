@@ -1,9 +1,14 @@
 <template>
-  <div class="masonry-container">
-    <MasonryInfiniteGrid class="masonry-grid" :useFit="true" :autoResize="true">
+  <div class="masonry-container" style="padding: 0">
+    <masonry-infinite-grid
+      class="masonry-grid"
+      @request-append="requestAppend"
+      @render-complete="onRenderComplete"
+      @change-scroll="onScroll"
+    >
       <div
         v-for="image in imageList"
-        :class="['masonry-item', itemClass]"
+        :class="['masonry-item', itemClass, 'p-2']"
         :key="image.id"
       >
         <div class="image-wrapper">
@@ -15,14 +20,14 @@
           />
         </div>
       </div>
-    </MasonryInfiniteGrid>
+    </masonry-infinite-grid>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { MasonryInfiniteGrid } from "@egjs/vue3-infinitegrid";
 
-const { data: imageList, pending } = useFetch("/api/board", {
+const { data: imageList } = useFetch("/api/board", {
   lazy: true,
 });
 
@@ -32,36 +37,23 @@ const updateColumnCount = () => {
   const width = window.innerWidth;
   switch (true) {
     case width >= 1536:
-      itemClass.value = "w-1/6 p-2"; // 6 columns
+      itemClass.value = "w-1/6"; // 6 columns
       break;
     case width >= 1280:
-      itemClass.value = "w-1/5 p-2"; // 5 columns
+      itemClass.value = "w-1/5"; // 5 columns
       break;
     case width >= 1024:
-      itemClass.value = "w-1/4 p-2"; // 4 columns
+      itemClass.value = "w-1/4"; // 4 columns
       break;
     case width >= 768:
-      itemClass.value = "w-1/3 p-2"; // 3 columns
+      itemClass.value = "w-1/3"; // 3 columns
       break;
     case width >= 640:
-      itemClass.value = "w-1/2 p-2"; // 2 columns
+      itemClass.value = "w-1/2"; // 2 columns
       break;
     default:
-      itemClass.value = "w-full p-2"; // 1 column
+      itemClass.value = "w-full"; // 1 column
   }
-  // if (width >= 1536) {
-  //   columnCount.value = 6;
-  // } else if (width >= 1280) {
-  //   columnCount.value = 5;
-  // } else if (width >= 1024) {
-  //   columnCount.value = 4;
-  // } else if (width >= 768) {
-  //   columnCount.value = 3;
-  // } else if (width >= 640) {
-  //   columnCount.value = 2;
-  // } else {
-  //   columnCount.value = 1;
-  // }
 };
 
 onMounted(() => {
@@ -72,6 +64,18 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", updateColumnCount);
 });
+
+const requestAppend = (e: any) => {
+  console.log(e);
+};
+
+const onRenderComplete = () => {
+  console.log("Render complete");
+};
+
+const onScroll = (e: any) => {
+  console.log("Scroll event", e);
+};
 </script>
 
 <style scoped></style>

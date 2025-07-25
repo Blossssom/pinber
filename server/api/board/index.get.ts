@@ -19,12 +19,10 @@ export default defineEventHandler(async (event) => {
     });
 
     const images = imageFiles.map((filename, idx) => {
-      const groupKey = Math.floor(idx / 6) + 1;
       return {
         id: idx + 1,
         filename,
         url: `/images/${filename}`,
-        groupKey: groupKey,
         height: Math.floor(Math.random() * 300) + 200,
       };
     });
