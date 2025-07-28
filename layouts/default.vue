@@ -1,7 +1,7 @@
 <template>
   <main class="flex h-full">
     <SideBar />
-    <div class="flex-1 w-(calc(100% - 62px)) ml-[62px]">
+    <div class="flex-1 w-(calc(100% - 72px)) ml-[72px]">
       <div class="p-2 fixed top-0 z-10 w-full bg-amber-100 -h-[40px]">
         <UInput
           icon="i-lucide-search"

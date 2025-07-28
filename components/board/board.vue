@@ -1,35 +1,31 @@
 <template>
   <div class="masonry-container" style="padding: 0">
-    <masonry-infinite-grid
+    <MasonryWall
       class="masonry-grid"
-      @request-append="requestAppend"
-      @render-complete="onRenderComplete"
-      @change-scroll="onScroll"
+      :items="imageList ?? []"
+      :max-columns="MAX_COLUMNS"
+      :column-width="200"
+      :ssr-columns="MAX_COLUMNS"
+      :min-columns="MIN_COLUMNS"
+      :gap="16"
+      :loading="pending"
     >
-      <div
-        v-for="image in imageList"
-        :class="['masonry-item', itemClass, 'p-2']"
-        :key="image.id"
-      >
+      <template #default="{ item, index }">
         <div class="image-wrapper">
-          <NuxtImg
-            class="masonry-image"
-            :src="image.url"
-            :alt="image.filename"
-            placeholder
-          />
+          <NuxtImg class="masonry-image" :src="item.url" :alt="item.filename" />
         </div>
-      </div>
-    </masonry-infinite-grid>
+      </template>
+    </MasonryWall>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { MasonryInfiniteGrid } from "@egjs/vue3-infinitegrid";
-
-const { data: imageList } = useFetch("/api/board", {
+const { data: imageList, pending } = useFetch("/api/board", {
   lazy: true,
 });
+
+const MAX_COLUMNS = 6;
+const MIN_COLUMNS = 2;
 
 const itemClass = ref("w-1/6 p-2");
 
@@ -64,18 +60,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", updateColumnCount);
 });
-
-const requestAppend = (e: any) => {
-  console.log(e);
-};
-
-const onRenderComplete = () => {
-  console.log("Render complete");
-};
-
-const onScroll = (e: any) => {
-  console.log("Scroll event", e);
-};
 </script>
 
 <style scoped></style>

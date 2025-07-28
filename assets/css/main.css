@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+:root {
+  --background: rgb(20, 20, 20);
+  --border-color-01: rgb(38, 39, 45);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,20 +16,21 @@ body,
   height: 100%;
 }
 
+html,
+body {
+  background-color: var(--background);
+}
+
 .masonry-container {
   @apply w-full px-4 py-6;
 
   /* margin: 0 auto; */
 }
 
-.masonry-grid {
-  @apply w-full;
-}
-
 .masonry-item {
   @apply break-inside-avoid mb-3;
   /* width: calc(100% / var(--columns) - 12px); */
-  transition: transform 0.2s ease;
+  transition: transform 0.5s ease;
 }
 
 .masonry-item:hover {
