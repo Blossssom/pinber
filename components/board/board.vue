@@ -2,7 +2,7 @@
   <div class="masonry-container" style="padding: 0">
     <MasonryWall
       class="masonry-grid"
-      :items="imageList ?? []"
+      :items="imageList || []"
       :max-columns="MAX_COLUMNS"
       :column-width="200"
       :ssr-columns="MAX_COLUMNS"
@@ -11,7 +11,7 @@
       :loading="pending"
     >
       <template #default="{ item, index }">
-        <div class="image-wrapper">
+        <div class="image-wrapper" @click="() => pinItemClickHandler(item.id)">
           <NuxtImg class="masonry-image" :src="item.url" :alt="item.filename" />
         </div>
       </template>
@@ -60,6 +60,14 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", updateColumnCount);
 });
+
+const pinItemClickHandler = async (id: number) => {
+  console.log("Pin item clicked:", id, typeof id);
+  if (!id || id === undefined || id === null || pending.value || isNaN(id)) {
+    return;
+  }
+  await navigateTo(`/pin/${id}`);
+};
 </script>
 
 <style scoped></style>

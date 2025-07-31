@@ -4,6 +4,8 @@
 :root {
   --background: rgb(20, 20, 20);
   --border-color-01: rgb(38, 39, 45);
+  --bg-primary-transparent: rgb(var(--color-white) / 2%);
+  --test: var(--color-red-500);
 }
 
 * {
@@ -28,13 +30,12 @@ body {
 }
 
 .masonry-item {
-  @apply break-inside-avoid mb-3;
+  @apply break-inside-avoid mb-3 cursor-pointer;
   /* width: calc(100% / var(--columns) - 12px); */
-  transition: transform 0.5s ease;
 }
 
 .masonry-item:hover {
-  @apply transform scale-102;
+  @apply transform scale-101 transition-transform duration-200 ease-in-out;
 }
 
 .image-wrapper {

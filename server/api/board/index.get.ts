@@ -1,8 +1,9 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   try {
+    console.log("Fetching board images...");
     const assetsPath = path.join(process.cwd(), "public/images");
 
     try {
@@ -28,5 +29,8 @@ export default defineEventHandler(async (event) => {
     });
 
     return images;
-  } catch (err) {}
+  } catch (err) {
+    console.error("Error reading images:", err);
+    return [];
+  }
 });
